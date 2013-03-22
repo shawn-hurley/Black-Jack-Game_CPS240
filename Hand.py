@@ -21,6 +21,7 @@ class Hand(object):
 
     def useCard(self):
         #Do Something
+        pass
 
     def get_value_of_hand(self):
         #Get hand value

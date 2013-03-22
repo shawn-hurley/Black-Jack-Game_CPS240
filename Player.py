@@ -40,6 +40,6 @@ class Player():
 
 	def want_card(self):
 		"""Ask this player if they would like to get another card"""
-		choice = raw_input("Would you like another card? (Please Enter True or Fals")
+		choice = raw_input("Would you like another card? (Please Enter True or False\n")
 		return bool(choice)
 		

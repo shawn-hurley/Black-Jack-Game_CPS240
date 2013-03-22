@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 class Card():
+	"""This is the card class, will represent a single card"""
 	#face value is the number that the card will use zero will be the intial
 	face_value = 0
 	#Should be false unless otherwised specified
