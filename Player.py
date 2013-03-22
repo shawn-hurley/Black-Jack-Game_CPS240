@@ -20,7 +20,7 @@ class Player():
 
 	def get_number_of_cards(self):
 		"""Return the number of cards"""
-		return self.hand.get_num_of_cards()
+		return self.hand.get_number_of_cards()
 
 	def set_bet(self, bet):
 		"""Set the bet for this player"""

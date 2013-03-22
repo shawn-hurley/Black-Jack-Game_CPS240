@@ -6,4 +6,5 @@ class Dealer(Player):
 	def __init__(self, arg):
 		super(Dealer, self).__init__()
 		self.arg = arg
-		
+	
+	
