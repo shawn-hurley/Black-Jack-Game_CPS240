@@ -15,7 +15,7 @@ class Hand(object):
 
     def add_card(self, card):
         #Takes Card from player, updates total value and card count, adds card to hand
-        self.__number_cards++
+        self.__number_cards +=1
         self.__value += card.get_face_value()
         self.__cards.append(card)
 
