@@ -1,4 +1,5 @@
 from Card import Card
+import random
 
 
 class Deck():
@@ -61,7 +62,7 @@ class Deck():
         self.deck.append(Card(11, "Ace of Diamonds", False))
         self.deck.append(Card(11, "Ace of Clubs", False))
 
-        #self.deck.shuffle()
+        random.shuffle(self.deck)
         num_of_cards = len(self.deck)
 
     def deal_card(self):
