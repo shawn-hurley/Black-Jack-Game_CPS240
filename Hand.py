@@ -17,7 +17,18 @@ class Hand(object):
         self.__number_cards +=1
         self.__value += card.get_face_value()
         self.__cards.append(card)
+        print self.__value
+        #This is where we should change the Ace if we need to
+        if(self.__value > 21):
+            for card in self.__cards:
+                if (card.get_name().split(" ", 1)[0] == 'Ace'):
+                    if (card.get_face_value() != 1):
+                        card.set_face_value(1)
+                        self.__value -= 10
+                        break
 
+                                
+        print self.__value
     def useCard(self):
         #Do Something
         pass
@@ -30,6 +41,3 @@ class Hand(object):
         #Get number of cards
         return self.__number_cards
 
-    def get_cards(self):
-        return self.__cards
-        

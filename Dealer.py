@@ -70,6 +70,13 @@ def black_jack():
 	player1.get_hand().showHand()
 	while(player1.want_card()):
 		dealer.give_card_to_player(player1)
+		print "Players Hand"
+		player1.get_hand().showHand()
+
+	while(dealer.want_card()):
+		dealer.give_card_to_player(dealer)
+		print "Dealers Hand"
+		dealer.get_hand().showHand()
 
 	
 	

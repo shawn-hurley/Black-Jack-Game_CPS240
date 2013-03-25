@@ -37,15 +37,25 @@ class Player(object):
 		self.__hand.add_card(card)
 
 	def want_card(self):
-		"""Ask this player if they would like to get another card"""
-		choice = raw_input("Would you like another card? (Please Enter True or False\n")
-		print choice
-		if choice == 'True':
-			choice = True
-		else:
+		"""Ask this player if they would like to get another card
+			Also check to see if the player has busted, because if they have
+			they can not recieve any new cards.
+		"""		
+		#print self.__hand.get_value_of_hand()
+		if self.__hand.get_value_of_hand() > 21:
+			print "You have busted"
 			choice = False
+			
+		
+		else:
+			choice = raw_input("Would you like another card? (Please Enter True or False\n")
+			if choice == 'True':
+				choice = True
+			else:
+				choice = False
+
 		return bool(choice)
 
 	def betting(self):
-		self.__bet = input("What is the players bet")
+		self.__bet = input("What is the players bet\n")
 		

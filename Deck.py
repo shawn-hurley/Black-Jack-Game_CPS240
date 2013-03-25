@@ -68,5 +68,4 @@ class Deck():
         """Give a card off top of self.deck"""
         card = self.deck.pop()
         num_of_cards = len(self.deck)
-        print num_of_cards
         return card
