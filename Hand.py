@@ -1,13 +1,12 @@
 from Card import Card
 
 class Hand(object):
-
+    
     def __init__(self):
         #Constructor
         self.__number_cards = 0
         self.__value = 0
         self.__cards = []
-
     def showHand(self):
         #Parse list of cards, asks card to show value
         for card in self.__cards:
@@ -30,4 +29,7 @@ class Hand(object):
     def get_number_of_cards(self):
         #Get number of cards
         return self.__number_cards
+
+    def get_cards(self):
+        return self.__cards
         
