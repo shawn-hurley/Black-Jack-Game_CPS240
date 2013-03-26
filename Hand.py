@@ -41,3 +41,11 @@ class Hand(object):
         #Get number of cards
         return self.__number_cards
 
+    def flip_card_over(self):
+        """look for a card that is turned over and flip it back, because all the players
+        have gone and that is what the dealer does
+        """
+        for card in self.__cards:
+            if card.get_face_down():
+                card.set_face_down(False)
+            

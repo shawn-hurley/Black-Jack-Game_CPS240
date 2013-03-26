@@ -21,6 +21,8 @@ class Card():
 		"""Get the name of the card"""
 		return self.__name
 
+	def get_face_down(self):
+		return self.__face_down
 
 	def set_face_value(self, face_value):
 		"""Set the face value to the given value"""

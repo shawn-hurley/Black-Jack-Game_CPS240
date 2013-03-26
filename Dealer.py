@@ -46,37 +46,57 @@ class Dealer(Player):
 		self.__all_bets.append(player.get_bet())
 
 	def want_card(self):
-		"""This will provide all the logic for wether a dealer should hit or stay"""
-		pass
+		"""This will provide all the logic for whether a dealer should hit or stay
+			As of right now we have the dealer standing on all 17's which is the most
+			conseritive.
+		"""
+
+		choice = True
+		if self.get_hand().get_value_of_hand() >= 17:
+			choice = False
+		else:
+			choice = True
+		return choice
+
+	def flip_card_over(self):
+		"""flip the card over because other wise that makes no sense"""
+		self.get_hand().flip_card_over()
+
 
 def black_jack():
 	"""This will be the driver for the game. we only have a single player vs the dealer"""
 	dealer = Dealer()
-	player1 = Player(input("How much money does the player have?"))
+	#player1 = Player(input("How much money does the player have?"))
 
 	
 	
 	#this should be the black_jack hand, while the begging should be setting up a new game
-	dealer.get_all_bets(player1)
+	#dealer.get_all_bets(player1)
 	##deal two cards each, one to the dealer should be set to face down
 	for x in xrange(1,3):
-		dealer.give_card_to_player(player1)
+		#dealer.give_card_to_player(player1)
 		dealer.give_card_to_player(dealer)
 
 	###Now the game is ready to start showing the hands of the dealer and the player should be done
-	print "Dealer's Hand"
-	dealer.get_hand().showHand()
-	print "Player's Hand"
-	player1.get_hand().showHand()
-	while(player1.want_card()):
-		dealer.give_card_to_player(player1)
-		print "Players Hand"
-		player1.get_hand().showHand()
+	#print "Dealer's Hand"
+	#dealer.get_hand().showHand()
+	#print "Player's Hand"
+	#player1.get_hand().showHand()
+	#while(player1.want_card()):
+	#	dealer.give_card_to_player(player1)
+	#	print "Players Hand"
+	#	player1.get_hand().showHand()
 
+	
+	dealer.flip_card_over()
+	dealer.get_hand().showHand()
 	while(dealer.want_card()):
 		dealer.give_card_to_player(dealer)
-		print "Dealers Hand"
-		dealer.get_hand().showHand()
+		
+	print "Dealers Hand"
+	dealer.get_hand().showHand()
+
+	dealer.set_winner()
 
 	
 	
