@@ -7,10 +7,12 @@ class Dealer(Player):
 	def __init__(self):
 		super(Dealer, self).__init__(10000)
 		self.__deck = Deck()
-		self.__all_bets = []
+		self.__all_bets = []	
 	
-	def set_winner(players):
-		"""Set the winner"""
+	def set_winner(player, dealer):
+		"""Set the winner Dealer will always win in a tie"""
+		pass
+
 		
 
 	def start_new_hand(self):
@@ -34,8 +36,9 @@ class Dealer(Player):
 			player.recieve_new_card(self.__deck.deal_card())
 
 	def shuffle_deck(self):
-		"""make the deck random again"""
+		"""make the deck random again, also the dealer should recieve a new hand"""
 		self.__deck = Deck()
+
 
 	def get_all_bets(self, player):
 		"""get all the bets from the players"""
@@ -67,9 +70,19 @@ def black_jack():
 	"""This will be the driver for the game. we only have a single player vs the dealer"""
 	dealer = Dealer()
 	player1 = Player(input("How much money does the player have?"))
+	want_to_play = 1
+	while(want_to_play == 1):
+		dealer.shuffle_deck()
+		dealer.ready_for_next_hand()
+		player1.ready_for_next_hand()
 
+		black_jack_hand(player1, dealer)
+		want_to_play = input("Would you like to play another hand? Select 1 for Yes and 0 for no")
 	
-	
+def black_jack_hand(player1, dealer):
+	"""This will be the code for a single hand. it should just exit and return back to the calle
+		which will be black_jack game
+	"""	
 	#this should be the black_jack hand, while the begging should be setting up a new game
 	dealer.get_all_bets(player1)
 	##deal two cards each, one to the dealer should be set to face down
@@ -95,7 +108,7 @@ def black_jack():
 	print "Dealers Hand"
 	dealer.get_hand().showHand()
 
-	dealer.set_winner()
+	#dealer.set_winner(player1, dealer)
 
 	
 	

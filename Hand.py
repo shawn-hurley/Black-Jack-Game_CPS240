@@ -27,8 +27,6 @@ class Hand(object):
                         self.__value -= 10
                         break
 
-                                
-        print self.__value
     def useCard(self):
         #Do Something
         pass

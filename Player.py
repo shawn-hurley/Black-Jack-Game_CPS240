@@ -58,4 +58,9 @@ class Player(object):
 
 	def betting(self):
 		self.__bet = input("What is the players bet\n")
+
+	def ready_for_next_hand(self):
+		"""Get the Player ready for the next hand."""
+		self.__hand = Hand()
+		self.__bet = 0
 		
