@@ -17,7 +17,6 @@ class Hand(object):
         self.__number_cards +=1
         self.__value += card.get_face_value()
         self.__cards.append(card)
-        print self.__value
         #This is where we should change the Ace if we need to
         if(self.__value > 21):
             for card in self.__cards:

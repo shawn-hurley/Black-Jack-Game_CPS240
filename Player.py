@@ -32,6 +32,9 @@ class Player(object):
 		"""Get the Money for this player"""
 		return self.__money
 
+	def set_money(self, money):
+		"""set the amount of money the player should have"""
+		self.__money = money
 	def recieve_new_card(self, card):
 		"""Should take the new Card and add it to the hand"""	
 		self.__hand.add_card(card)

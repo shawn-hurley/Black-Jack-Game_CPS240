@@ -6,7 +6,8 @@ class Deck():
     """Initialize new self.deck and shuffle"""
     #self.deck is list which represents the self.deck of cards
     #number of cards initialized to 0. Will be equal to length of self.deck list
-    num_of_cards = 0
+    __num_of_cards = 0
+
     def __init__(self):
         self.deck = []
         self.deck.append(Card(2, "2 of Spades", False))
@@ -63,10 +64,10 @@ class Deck():
         self.deck.append(Card(11, "Ace of Clubs", False))
 
         shuffle(self.deck)
-        num_of_cards = len(self.deck)
+        self.__num_of_cards = len(self.deck)
 
     def deal_card(self):
         """Give a card off top of self.deck"""
         card = self.deck.pop()
-        num_of_cards = len(self.deck)
+        self.__num_of_cards = len(self.deck)
         return card
