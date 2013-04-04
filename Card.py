@@ -1,6 +1,3 @@
-#!/usr/bin/python
-
-
 class Card():
     """This is the card class, will represent a single card"""
     #face value is the number that the card will use zero will be the intial
@@ -32,9 +29,9 @@ class Card():
         self.__face_down = face_down
 
     def show_card(self):
+    card = "Face Down"
         if (self.__face_down):
-            print "Face Down\n"
+            pass
         else:
-            print "*****Card****\nName: %s\nFace Value:  %d\n" % (self.__name, self.__face_value)
-
-
+            card = self.__name
+	return card
