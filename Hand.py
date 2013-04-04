@@ -21,6 +21,7 @@ class Hand(object):
                 if (card.get_name().split(" ", 1)[0] == 'Ace') and (card.get_face_value() != 1):
                     card.set_face_value(1)
                     self.__value -= 10
+                    break
 
     def get_value_of_hand(self):
         #Get hand value

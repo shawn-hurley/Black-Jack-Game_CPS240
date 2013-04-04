@@ -29,9 +29,9 @@ class Card():
         self.__face_down = face_down
 
     def show_card(self):
-    card = "Face Down"
+        card = "Face Down"
         if (self.__face_down):
             pass
         else:
             card = self.__name
-	return card
+        return card
