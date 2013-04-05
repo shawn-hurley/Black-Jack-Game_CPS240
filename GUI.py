@@ -73,22 +73,20 @@ class Game(object):
             player.set_name(name)
             player.set_pixel(i+3)
             self.players.append(player)
-            lbl_player(name,i+5)
+            
 
     def place_bets(self):
         self.dealer.clear_hand()
         draw_name('Dealer',2)
         ask_bet = 'Please enter a bet'
         for player in self.players:
-            bet = float(askstring(player.get_name(), ask_bet ))
+            last_bet = player.get_bet()
+            bet = float(askstring(player.get_name(), ask_bet, initialvalue=last_bet))
             while (not player.set_bet(bet)):
-                bet = float(askstring(player.get_name(), "Bet was greater than total"+ask_bet))
+                bet = float(askstring(player.get_name(), "Bet was greater than total money\n"+ask_bet, initialvalue=last_bet))
             player.clear_hand()
             player.set_want_card(True)
-            ###TODO: Fix these to make in line with OO.
-            #last_bet = player[0].get_bet()
-            #bet = askfloat(player[1], ask_bet,initialvalue=last_bet)
-            #draw_name(player[1],player[2]+2)
+            draw_name(player.get_name(),player.get_pixel()+2)
             self.play+=1
 
     def give_card(self):
@@ -101,13 +99,10 @@ class Game(object):
         draw_cards(my_hand,0)
         for player in self.players:
             print player.get_name(),"'s Hand"
-            d1 = player.get_hand().get_cards()
-            draw_cards(d1,player.get_pixel())
-            ##TODO: SAME AS ABOVE!
-            #my_hand = player[0].get_hand().get_cards()
-            #draw_cards(my_hand,player[2])
-            #stats = self.get_stats(player)
-            #draw_stats(stats,player[2])
+            my_hand = player.get_hand().get_cards()
+            draw_cards(my_hand,player.get_pixel())
+            stats = self.get_stats(player)
+            draw_stats(stats,player.get_pixel())
 
 
     def hit_player(self):
@@ -119,19 +114,14 @@ class Game(object):
             else:
                 self.play-=1
                 player.set_want_card(False)
-                #player[3] = False
+
             if(player.get_want_card()):
                 self.dealer.give_card(player)
                 print player.get_name(),"'s Hand"
-                d1 = player.get_hand().get_cards()
-                draw_cards(d1,player.get_pixel())
-            #     player[3] = False
-            # if(player[3]):
-            #     self.dealer.give_card(player[0])
-            #     my_hand = player[0].get_hand().get_cards()
-            #     draw_cards(my_hand,player[2])
-            #     stats = self.get_stats(player)
-            #     draw_stats(stats,player[2])
+                my_hand = player.get_hand().get_cards()
+                draw_cards(my_hand,player.get_pixel())
+                stats = self.get_stats(player)
+                draw_stats(stats,player.get_pixel())
 
 
     def hit_dealer(self):
@@ -155,47 +145,47 @@ class Game(object):
         m_los = "Loser! You Lost: "
         d_val = self.dealer.get_valuehand()
         for player in self.players:
+            # p_val = player.get_valuehand()
+            # print player.get_name(),": ",p_val
+            # money = player.get_money()
+            # bet = player.get_bet()
+            # if (d_val<p_val<=21) or (d_val>21 and p_val<=21):
+            #     winnings = bet*2
+            #     money+=(winnings)
+            #     player.set_money(money)
+            #     var = mes+str(winnings)+" Total: "+str(money)
+            #     tkMessageBox.showwarning(player.get_name(),var)
+            # elif d_val==p_val:
+            #     tkMessageBox.showwarning(player.get_name(),mes2)
+            # else:
+            #     money-=bet
+            #     player.set_money(money)
+            #     var = mes+str(money)
+            #     tkMessageBox.showwarning(player.get_name(),var)
+                
+
             p_val = player.get_valuehand()
-            print player.get_name(),": ",p_val
             money = player.get_money()
             bet = player.get_bet()
             if (d_val<p_val<=21) or (d_val>21 and p_val<=21):
                 winnings = bet*2
                 money+=(winnings)
                 player.set_money(money)
-                var = mes+str(winnings)+" Total: "+str(money)
-                tkMessageBox.showwarning(player.get_name(),var)
+                var = m_win+str(winnings)+" Total: "+str(money)
             elif d_val==p_val:
-                tkMessageBox.showwarning(player.get_name(),mes2)
+                var = m_tie
             else:
                 money-=bet
                 player.set_money(money)
-                var = mes3+str(money)
-                tkMessageBox.showwarning(player.get_name(),var)
-                
-# =======
-#             p_val = player[0].get_valuehand()
-#             money = player[0].get_money()
-#             bet = player[0].get_bet()
-#             if (d_val<p_val<=21) or (d_val>21 and p_val<=21):
-#                 winnings = bet*2
-#                 money+=(winnings)
-#                 player[0].set_money(money)
-#                 var = m_win+str(winnings)+" Total: "+str(money)
-#             elif d_val==p_val:
-#                 var = m_tie
-#             else:
-#                 money-=bet
-#                 player[0].set_money(money)
-#                 var = m_los+str(bet)+" Total: "+str(money)
-#             stats = self.get_stats(player)
-#             draw_stats(stats,player[2])
-#             tkMessageBox.showwarning(player[1],var)
+                var = m_los+str(bet)+" Total: "+str(money)
+            stats = self.get_stats(player)
+            draw_stats(stats,player.get_pixel())
+            tkMessageBox.showwarning(player.get_name(),var)
 
     def get_stats(self, player):
-        st_val = str(player[0].get_valuehand())
-        money = str(player[0].get_money())
-        bet = str(player[0].get_bet())
+        st_val = str(player.get_valuehand())
+        money = str(player.get_money())
+        bet = str(player.get_bet())
         stats = "Money: "+money+"\n"+\
                 "Bet: "+bet+"\n"+\
                 "Hand Value: "+st_val
