@@ -65,28 +65,31 @@ class Game(object):
         self.play = num_player
         ask_name = 'What is the players name?'
         ask_purse = 'How much money will you start with?'
-        hit = True
+        hit = True #What is this?
         for i in range(num_player):
             player = Player()
             name = askstring('Name', ask_name )
             money = float(askstring(name, ask_purse ))
             player.set_money(money)
-            self.players.append([player,name,i+3,hit])
+            player.set_name(name)
+            player.set_pixel(i+3)
+            self.players.append(player)
             lbl_player(name,i+5)
 
     def place_bets(self):
         self.dealer.clear_hand()
         ask_bet = 'Please enter a bet'
         for player in self.players:
-            bet = float(askstring(player[1], ask_bet ))
-            player[0].set_bet(bet)
-            player[0].clear_hand()
-            player[3] = True
+            bet = float(askstring(player.get_name(), ask_bet ))
+            while (not player.set_bet(bet)):
+                bet = float(askstring(player.get_name(), "Bet was greater than total"+ask_bet))
+            player.clear_hand()
+            player.set_want_card(True)
             self.play+=1
 
     def give_card(self):
         for player in self.players:
-            self.dealer.give_card(player[0])
+            self.dealer.give_card(player)
         self.dealer.give_card(self.dealer)
 	
     def show_hands(self):
@@ -94,24 +97,25 @@ class Game(object):
         d1 = self.dealer.get_hand().get_cards()
         draw_cards(d1,0)
         for player in self.players:
-            print player[1],"'s Hand"
-            d1 = player[0].get_hand().get_cards()
-            draw_cards(d1,player[2])
+            print player.get_name(),"'s Hand"
+            d1 = player.get_hand().get_cards()
+            draw_cards(d1,player.get_pixel())
 
     def hit_player(self):
         ask_card = 'Would you like to hit?'
         for player in self.players:
-            value = player[0].get_valuehand()
-            if value<21 and player[3] is True:
-                player[3] = tkMessageBox.askyesno(player[1], (ask_card+" Total: "+str(value)))
+            #value = player.get_valuehand()
+            if player.get_valuehand()<21 and player.get_want_card() is True:
+                player.set_want_card(tkMessageBox.askyesno(player.get_name(), (ask_card+" Total: "+str(player.get_valuehand()))))
             else:
                 self.play-=1
-                player[3] = False
-            if(player[3]):
-                self.dealer.give_card(player[0])
-                print player[1],"'s Hand"
-                d1 = player[0].get_hand().get_cards()
-                draw_cards(d1,player[2])
+                player.set_want_card(False)
+                #player[3] = False
+            if(player.get_want_card()):
+                self.dealer.give_card(player)
+                print player.get_name(),"'s Hand"
+                d1 = player.get_hand().get_cards()
+                draw_cards(d1,player.get_pixel())
 
     def hit_dealer(self):
         self.dealer.get_hand().flip_card()
@@ -133,23 +137,23 @@ class Game(object):
         d_val = self.dealer.get_valuehand()
         print "Dealer: ",d_val
         for player in self.players:
-            p_val = player[0].get_valuehand()
-            print player[1],": ",p_val
-            money = player[0].get_money()
-            bet = player[0].get_bet()
+            p_val = player.get_valuehand()
+            print player.get_name(),": ",p_val
+            money = player.get_money()
+            bet = player.get_bet()
             if (d_val<p_val<=21) or (d_val>21 and p_val<=21):
                 winnings = bet*2
                 money+=(winnings)
-                player[0].set_money(money)
+                player.set_money(money)
                 var = mes+str(winnings)+" Total: "+str(money)
-                tkMessageBox.showwarning(player[1],var)
+                tkMessageBox.showwarning(player.get_name(),var)
             elif d_val==p_val:
-                tkMessageBox.showwarning(player[1],mes2)
+                tkMessageBox.showwarning(player.get_name(),mes2)
             else:
                 money-=bet
-                player[0].set_money(money)
+                player.set_money(money)
                 var = mes3+str(money)
-                tkMessageBox.showwarning(player[1],var)
+                tkMessageBox.showwarning(player.get_name(),var)
                 
 
     def loop(self):
